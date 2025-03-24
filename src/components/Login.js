@@ -4,8 +4,10 @@ import checkValidaData from "../utils/validate";
 import {  createUserWithEmailAndPassword ,signInWithEmailAndPassword, updateProfile} from "firebase/auth";
 import {auth} from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
+import { useDispatch } from "react-redux";
+import {addUser, removeUser} from "../utils/userSlice";
+import { USER_AVTAR } from "../utils/constants";
 const Login = () =>{
 
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -33,20 +35,28 @@ const Login = () =>{
      .then((userCredential) => {
        // Signed up 
        const user = userCredential.user;
-       updateProfile(user, {
+       updateProfile(user,
+         {
         displayName: username.current.value,
-         photoURL: "https://example.https://avatars.githubusercontent.com/u/170734714?s=400&u=f7bb44dd1d95259a3f4ebd2bc118558ba6cd2743&v=4/jane-q-user/profile.jpg"
-      }).then(() => {
-        dispatch();
-        navigate("/browse")
-      }).catch((error) => {
+        // we do not need to wrap it inside brac+sis 
+         photoURL:USER_AVTAR,
+      })
+      .then(() => {
+        const { uid,email, displayName,photoURL }= auth.currentUser;
+        dispatch(
+          addUser({
+                  uid: uid ,
+                  email: email,
+                   displayName:displayName,
+                   photoURL:photoURL
+             })
+          );                 
+    
+      }).
+      catch((error) => {
        setErrorMsg(error.message);
       });
-
-      
-       console.log(user);     
-       navigate("/browse");  
-     })
+            })
      .catch((error) => {
        const errorCode = error.code;
        const errorMessage = error.message;

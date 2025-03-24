@@ -1,4 +1,5 @@
 
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import { Provider } from 'react-redux';
 import Body from './components/Body';
 import './index.css';

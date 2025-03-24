@@ -88,3 +88,19 @@
     color: white;
  /* good  */ 
 }
+.videomain{
+    padding-top: 200px;
+    width: 50%;
+    padding-left: 50px;
+
+}
+.vtsecound{
+    padding: 10px;
+}
+.play-btn{
+    padding: 10px;
+    background-color: rgb(150, 148, 148);
+    color: black; margin: 10px;
+    width: 100px;
+    border-radius: 10px;
+}
