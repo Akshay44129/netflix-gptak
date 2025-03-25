@@ -119,3 +119,33 @@
     width: 100%;
     aspect-ratio: 16/9;
 }
+.main-movielist{
+    padding-left: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    /* background-color: rgba(22, 17, 17, 0); */
+}
+.movielist-path{   
+    overflow-x: auto; 
+    scrollbar-width: none;
+  display: flex;  
+      
+}
+
+.h1-ml{
+    color: wheat;
+    font-size: 40px; 
+}
+.mc-main{
+    padding-right: 8px;
+}
+.scmovies{
+   background-color: black;
+    
+}
+.scmovies2{
+    margin-top: -300px;
+    position: relative;
+    z-index: 20;
+    padding-left: 30px;
+}

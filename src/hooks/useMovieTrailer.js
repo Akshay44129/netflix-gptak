@@ -26,7 +26,7 @@ const useMovieTrailer =(movieId) =>{
      
         // setTrailerId(trailer.key);
         dispatch(addTrailerVideo(trailer));
-        console.log(trailer);
+  
         
     };
 
