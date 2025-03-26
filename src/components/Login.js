@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import {addUser, removeUser} from "../utils/userSlice";
-import { USER_AVTAR } from "../utils/constants";
+import { BG_URL, USER_AVTAR } from "../utils/constants";
 const Login = () =>{
 
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -95,11 +95,11 @@ const toggleSignInForm=() =>{
 }
 
     return (
-        <div className="main">
-            <Header/> 
-            <div>
-          <img src="https://cdn.wallpapersafari.com/24/74/zgeTuV.jpg" alt="bg"></img>
+        <div className="main"> <div>
+          <img src={BG_URL} alt="bg"></img>
             </div>
+            <Header/> 
+           
             <form onSubmit={(e) => e.preventDefault()} className="loginform">
 
               <h1 className="h1">{isSignInForm ? "Sign In ": "Sign Up" } </h1>

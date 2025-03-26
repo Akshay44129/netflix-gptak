@@ -149,3 +149,53 @@
     z-index: 20;
     padding-left: 30px;
 }
+.gpt-btn{
+margin: 15px;   
+ background-color: rgb(222, 137, 222);
+ border-radius: 10px;
+}
+
+.gpt-main{
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    padding-top: 10%;
+       
+
+}
+.bg-gpt{
+    padding-top: 10%;
+    position: absolute;
+    z-index: -8;
+    
+}
+.gptsearchform{
+    width: 50%;
+    background-color: black;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr); /* 12-column grid */
+}
+.input-search-gpt{
+ padding: 10px;
+ margin: 8px;
+ border-radius: 8px;
+ grid-column: span 8; 
+
+
+
+}
+.gpt-search-btn{
+    padding: 10px;
+    margin: 8px;
+    background-color: brown;
+    color: white;
+    grid-column: span 4; 
+ 
+
+}
+.select-lang{
+    padding: 10px;
+    margin: 12px;
+    background-color: gray;
+    color: white;
+}
