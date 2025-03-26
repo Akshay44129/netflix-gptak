@@ -6,9 +6,7 @@ const SecoundaryContainer = () => {
     const movies = useSelector((store) => store.movies);
 
     useEffect(() => {
-        console.log("Movies Data:", movies?.nowPlayingMovies);
-        console.log(movies?.popularMovies);
-        console.log(movies?.trandingMovies);
+     
     }, []);
 
     if (!movies || !movies.nowPlayingMovies) {

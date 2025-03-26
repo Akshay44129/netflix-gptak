@@ -72,13 +72,13 @@ const Login = () =>{
   .then((userCredential) => {
     // Signed in 
     const user = userCredential.user;
-    console.log(user);
+    
     navigate("/browse"); 
   })
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
-    console.log(errorMessage+ "--" + errorCode);
+  
   });
      }
 
