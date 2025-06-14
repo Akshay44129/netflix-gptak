@@ -1,4 +1,4 @@
-import { use, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 import Header from "./Header";
 import checkValidaData from "../utils/validate";
 import {  createUserWithEmailAndPassword ,signInWithEmailAndPassword, updateProfile} from "firebase/auth";
@@ -6,7 +6,7 @@ import {auth} from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
-import {addUser, removeUser} from "../utils/userSlice";
+import {addUser} from "../utils/userSlice";
 import { BG_URL, USER_AVTAR } from "../utils/constants";
 const Login = () =>{
 
@@ -38,7 +38,7 @@ const Login = () =>{
        updateProfile(user,
          {
         displayName: username.current.value,
-        // we do not need to wrap it inside brac+sis 
+        
          photoURL:USER_AVTAR,
       })
       .then(() => {
@@ -52,8 +52,7 @@ const Login = () =>{
              })
           );                 
     
-      }).
-      catch((error) => {
+      }).catch((error) => {
        setErrorMsg(error.message);
       });
             })
@@ -70,21 +69,18 @@ const Login = () =>{
               password.current.value
             )
   .then((userCredential) => {
-    // Signed in 
-    const user = userCredential.user;
+    
     
     navigate("/browse"); 
   })
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
+    console.log(errorCode);
+    console.log(errorMessage);
   
   });
      }
-
-    // if  (messege === null){
-    //   // sign in sign up
-    // }
 
 
   }
