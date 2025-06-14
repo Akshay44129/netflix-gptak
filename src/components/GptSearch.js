@@ -5,8 +5,8 @@ import GptSearchBar from "./GptSearchBar";
 const GPTSearch = () => {
   return (
     <>
-      <div className="fixed -z-10">
-        <img className="h-screen object-cover" src={BG_URL} alt="logo" />
+      <div className="main-gptserch">
+        <img className="element" src={BG_URL} alt="logo" />
       </div>
       <div className="">
         <GptSearchBar />
@@ -15,4 +15,4 @@ const GPTSearch = () => {
     </>
   );
 };
-export default GPTSearch;
+export default GPTSearch;  
