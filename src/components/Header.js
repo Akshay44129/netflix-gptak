@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {addUser, removeUser} from "../utils/userSlice";
 import { LOGO, SUPPORTED_LANGUAGES } from "../utils/constants";
 import { toggleGptSearchView } from "../utils/gptSlice";
-import lang from "../utils/languageConstans";
+
 import { changeLanguage } from "../utils/configSlice";
 
 const Header =() =>{
@@ -46,7 +46,7 @@ const Header =() =>{
           }
         });
              return () => unsubscribe();
-      },[]);
+      },[dispatch, navigate]);
 
        const handleGptSearch= () =>{
         //toggle gpt search 

@@ -7,7 +7,6 @@ const useMovieTrailer = (movieId) => {
     const dispatch = useDispatch();
     const trailerVideo = useSelector((store) => store.movies.trailerVideo);
 
-    // Memoize the function with useCallback
     const getMoviesVideos = useCallback(async () => {
         const data = await fetch(
             `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`,
@@ -17,13 +16,13 @@ const useMovieTrailer = (movieId) => {
         const filterData = json.results.filter(video => video.type === "Trailer");
         const trailer = filterData.length ? filterData[0] : json.results[0];
         dispatch(addTrailerVideo(trailer));
-    }, [movieId, dispatch]); // Dependencies for the callback
+    }, [movieId, dispatch]);
 
     useEffect(() => {
         if (!trailerVideo) {
             getMoviesVideos();
         }
-    }, [trailerVideo, getMoviesVideos]); // Dependencies for the effect
+    }, [trailerVideo, getMoviesVideos]);
 };
 
 export default useMovieTrailer;
