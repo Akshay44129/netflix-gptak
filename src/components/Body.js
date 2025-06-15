@@ -1,8 +1,8 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Browse from "./Browse";
 import Login from "./Login";
-import { RouterProvider } from "react-router-dom";
-
+import GptSearchBar from "./GptSearchBar";
+import MovieDetails from "./MovieDetails";
 const Body = () => {
   const appRouter = createBrowserRouter([
     {
@@ -13,6 +13,14 @@ const Body = () => {
       path: "/browse",
       element: <Browse />,
     },
+    {
+      path: "/search",
+      element: <GptSearchBar />, 
+    },{
+    path: "/movie/:movieId",
+    element: <MovieDetails />,
+  }
+    
   ]);
 
   return (
@@ -21,4 +29,5 @@ const Body = () => {
     </div>
   );
 };
+
 export default Body;

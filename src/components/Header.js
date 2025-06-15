@@ -67,7 +67,7 @@ const Header =() =>{
             {SUPPORTED_LANGUAGES.map(lang =>  <option key={lang.identifier} value={lang.identifier}>{lang.name}</option>)}
           </select>}
           <button onClick={handleGptSearch} className="gpt-btn">{
-            showGptSearch ? "Home Page" : "Gpt Search"}</button>
+            showGptSearch ? "Home Page" : "Search Your Movies Here"}</button>
            <img className="header-img user"
             alt="usericon "
              src={user?.photoURL} />

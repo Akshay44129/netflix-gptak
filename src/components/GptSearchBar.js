@@ -1,14 +1,16 @@
 import React, { useRef } from 'react';
 import { BG_URL, TMDB_SEARCH_API, API_OPTIONS } from '../utils/constants';
 import lang from '../utils/languageConstans';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
-import { addGptMovieResult,clearGptMovieResults, setLoading, setError} from '../utils/gptSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { addGptMovieResult, clearGptMovieResults, setLoading, setError } from '../utils/gptSlice';
+import { useNavigate } from 'react-router-dom';
 
 const GptSearchBar = () => {
   const langKey = useSelector(store => store.config.lang);
   const searchText = useRef(null);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { movieNames, movieResults } = useSelector(store => store.gpt);
 
   const searchMovieTMDB = async (movie) => {
     const data = await fetch(
@@ -20,37 +22,41 @@ const GptSearchBar = () => {
   };
 
   const handleGptSearchClick = async () => {
-  const query = searchText.current.value;
-  if (!query) return;
+    const query = searchText.current.value;
+    if (!query) return;
 
-  try {
-    dispatch(setLoading(true));
-    dispatch(clearGptMovieResults());
-    
-    // Search TMDB API
-    const searchResults = await searchMovieTMDB(query);
-    
-    if (!searchResults.length) {
-      throw new Error("No movies found for your search");
+    try {
+      dispatch(setLoading(true));
+      dispatch(clearGptMovieResults());
+      
+      const searchResults = await searchMovieTMDB(query);
+      
+      if (!searchResults.length) {
+        throw new Error("No movies found for your search");
+      }
+      
+      const movieNames = searchResults.slice(0, 1).map(movie => movie.title);
+      const moviePromises = searchResults.slice(0, 1).map(movie => 
+        searchMovieTMDB(movie.title)
+      );
+      
+      const tmdbResults = await Promise.all(moviePromises);
+      
+      dispatch(addGptMovieResult({
+        movieNames: movieNames,
+        movieResults: tmdbResults
+      }));
+      
+    } catch (error) {
+      dispatch(setError(error.message));
+    } finally {
+      dispatch(setLoading(false));
     }
-    
-    // Process results
-    const movieNames = searchResults.slice(0, 5).map(movie => movie.title);
-    const moviePromises = searchResults.slice(0, 5).map(movie => 
-      searchMovieTMDB(movie.title)
-    );
-    
-    const tmdbResults = await Promise.all(moviePromises);
-    
-    dispatch(addGptMovieResult({
-      movieNames: movieNames,
-      movieResults: tmdbResults
-    }));
-    
-  } catch (error) {
-    dispatch(setError(error.message));
-  }
-};
+  };
+
+  const handleMovieClick = (movieId) => {
+    navigate(`/movie/${movieId}`);
+  };
 
   return (
     <div className='gpt-main'>
@@ -71,6 +77,36 @@ const GptSearchBar = () => {
           {lang[langKey].search}
         </button>
       </form>
+
+      Movie Suggestions Section
+      {movieNames && movieResults && (
+        <div className="movie-suggestions-container">
+          <h2 className="suggestions-title">{lang[langKey].suggestions}</h2>
+          <div className="movie-suggestions">
+            {movieResults.map((movieList, index) => (
+              movieList.map(movie => (
+                <div 
+                  key={movie.id}
+                  className="movie-suggestion-card"
+                  onClick={() => handleMovieClick(movie.id)}
+                >
+                  <img
+                    src={movie.poster_path 
+                      ? `https://image.tmdb.org/t/p/w200${movie.poster_path}` 
+                      : '/placeholder.jpg'}
+                    alt={movie.title}
+                    className="movie-poster"
+                  />
+                  <div className="movie-info">
+                    <h3>{movie.title}</h3>
+                    <p>{movie.release_date && movie.release_date.substring(0, 4)}</p>
+                  </div>
+                </div>
+              ))
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
